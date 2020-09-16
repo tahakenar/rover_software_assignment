@@ -5,10 +5,10 @@ from std_msgs.msg import String
 
 
 def callbackDrive(data):
-    print("DRIVE POSITION: " + data.data)
+    print("Drive Position: " + data.data)
 
 def callbackRoboticArm(data):
-    print("ROBOTIC ARM POSITION: " + data.data)
+    print("Robotic Arm Position: " + data.data)
 
 def final_receiver():
     

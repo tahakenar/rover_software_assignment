@@ -16,16 +16,14 @@ class Processor():
 
 	def callbackDrive(self,data):
 		if self.checkDataType(data.data):
-			#rospy.loginfo("DRIVE DATA: "+ data.data)
-			print("DRIVE DATA: "+ data.data)
+			print("Drive Data: "+ data.data)
 			self.manipulate_and_publish(data.data)
 		else:
 			pass
 
 	def callbackRoboticArm(self,data):
 		if self.checkDataType(data.data):
-			#rospy.loginfo("ROBOTIC ARM DATA: "+ data.data)
-			print("ROBOTIC ARM DATA: "+ data.data)
+			print("Robotic Arm Data: "+ data.data)
 			self.manipulate_and_publish(data.data)
 		else:
 			pass
