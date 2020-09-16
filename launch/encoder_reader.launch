@@ -1,0 +1,9 @@
+<launch>
+  
+    <node pkg="rover" name="encoder_pub_node" type="encoder_pub_node.py" output="screen"/> 
+
+    <node pkg="rover" name="data_processor" type="data_processor.py" output="screen"/> 
+
+    <node pkg="rover" name="final_receiver" type="final_receiver.py" output="screen"/> 
+
+</launch> 
