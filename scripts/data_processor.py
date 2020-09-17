@@ -6,24 +6,16 @@ from std_msgs.msg import String
 class Processor():
 
 	def __init__(self):
-		rospy.Subscriber('/serial/drive',String,self.callbackDrive)
-		rospy.Subscriber('/serial/robotic_arm',String,self.callbackRoboticArm)
+		rospy.Subscriber('/serial/drive',String,self.callback)
+		rospy.Subscriber('/serial/robotic_arm',String,self.callback)
 
 		self.pubDrivePos = rospy.Publisher('/position/drive',String,queue_size=10)
 		self.pubArmPos = rospy.Publisher('/position/robotic_arm',String,queue_size=10)
 
 		self.rate = rospy.Rate(1)
 
-	def callbackDrive(self,data):
+	def callback(self,data):
 		if self.checkDataType(data.data):
-			print("Drive Data: "+ data.data)
-			self.manipulate_and_publish(data.data)
-		else:
-			pass
-
-	def callbackRoboticArm(self,data):
-		if self.checkDataType(data.data):
-			print("Robotic Arm Data: "+ data.data)
 			self.manipulate_and_publish(data.data)
 		else:
 			pass
@@ -35,20 +27,22 @@ class Processor():
 			return False
 
 	def manipulate_and_publish(self,data_group):
-		num_of_motors = self.checkDataGroupLength(data_group)
-		output_string = self.dataParser(data_group,num_of_motors)
+		num_of_motors = self.getDataGroupLength(data_group)
+		output_string = self.parseData(data_group,num_of_motors)
 
 		if num_of_motors == 4:
+			print("Drive data: " + data_group)
 			self.pubDrivePos.publish(output_string)
 		else:
+			print("Robotic arm data: " + data_group)
 			self.pubArmPos.publish(output_string)
 
-	def checkDataGroupLength(self,data_group):
+	def getDataGroupLength(self,data_group):
 		length = len(data_group)
 		length = (length-2)/4
 		return length
 
-	def dataParser(self,data_group,num_of_motors):
+	def parseData(self,data_group,num_of_motors):
 		initial_point = 2
 		parsed_data = ""
 
