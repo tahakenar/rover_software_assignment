@@ -3,7 +3,6 @@
 import rospy
 from std_msgs.msg import String
 
-
 def callbackDrive(data):
     print("Drive Position: " + data.data)
 
